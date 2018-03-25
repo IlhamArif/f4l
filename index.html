@@ -147,7 +147,8 @@ p1score -= 5;
 if (p1.x == p2.x && p1.y == p2.y && p2color == "Green") {
 p1score -= 3;
 }
-if (p1score == 0) {
+if (p1score <= 0) {
+p1score += 1;
 p1color = "Yellow"
 p2color = "Blue"
 alert("Player 2 Wins")
@@ -156,7 +157,8 @@ p2score = 100;
 p1.x = 0;
 p2.x = 570;
 }
-if (p2score == 0) {
+if (p2score <= 0) {
+p2score += 1;
 p1color = "Yellow"
 p2color = "Blue"
 alert("Player 1 Wins")
