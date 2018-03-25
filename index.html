@@ -1,0 +1,171 @@
+<head>
+<title>Fighter 4 Life</title>
+<meta name="viewport" content="width=device-width", initial-scale=1.0 />
+<style>
+#game {
+height: 400px;
+width: 600px;
+border: 1px solid black;
+}
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<script>
+var canvas = document.getElementById("game");
+var ctx = canvas.getContext('2d');
+canvas.height = 400;
+canvas.width = 600;
+var render = function(){
+back();
+line();
+player2();
+player1();
+ground();
+p1h();
+p2h();
+}
+var p1 = {
+x: 0,
+y: 0
+}
+var p2 = {
+x: 570,
+y: 0
+}
+var p1h = function(){
+ctx.fillStyle = "Black";
+ctx.font = "50px Consolas";
+ctx.fillText(p1score, 200, 50);
+}
+var p2h = function(){
+ctx.fillStyle = "Black";
+ctx.font = "50px Consolas";
+ctx.fillText(p2score, 320, 50);
+}
+var p1color = "Yellow";
+var p2color = "Blue";
+var p1score = 100;
+var p2score = 100;
+var player1 = function(){
+ctx.fillStyle = p1color;
+ctx.fillRect(p1.x, p1.y, 30, 30);
+}
+var player2 = function(){
+ctx.fillStyle = p2color;
+ctx.fillRect(p2.x, p2.y, 30, 30);
+}
+var back = function(){
+ctx.fillStyle = "SkyBlue";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+var line = function(){
+ctx.fillStyle = "Black";
+ctx.fillRect(300, 0, 1, 300);
+}
+var ground = function(){
+ctx.fillStyle = "DarkGreen";
+ctx.fillRect(0, 300, 600, 100);
+}
+window.onload = function(){
+setInterval(function(){
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+render()
+p1.y += 10;
+p2.y += 10;
+if (p1.y > 270) {
+p1.y -= 10;
+}
+if (p2.y > 270) {
+p2.y -= 10;
+}
+},33)
+window.onkeyup = function(){
+p1color = "Yellow";
+p2color = "Blue";
+}
+window.onkeydown = function(e){
+switch(e.keyCode) {
+case 38:
+p2.y -= 100;
+break;
+case 37:
+p2.x -= 10;
+break;
+case 39:
+p2.x += 10;
+break;
+case 87:
+p1.y -= 100;
+break;
+case 65:
+p1.x -= 10;
+break;
+case 68:
+p1.x += 10;
+break;
+case 84:
+p1color = "Red";
+break;
+case 89:
+p1color = "Green";
+break;
+case 78:
+p2color = "Red";
+break;
+case 77:
+p2color = "Green";
+break;
+}
+if (p2.y < 0) {
+p2.y += 100;
+}
+if (p1.y < 0) {
+p1.y += 100;
+}
+if (p2.x > 570) {
+p2.x -= 10;
+}
+if (p2.x < 0) {
+p2.x += 10;
+}
+if (p1.x > 570) {
+p1.x -= 10;
+}
+if (p1.x < 0) {
+p1.x += 10;
+}
+if (p1.x == p2.x && p1.y == p2.y && p1color == "Red") {
+p2score -= 5;
+}
+if (p1.x == p2.x && p1.y == p2.y && p1color == "Green") {
+p2score -= 3;
+}
+if (p2.x == p1.x && p2.y == p1.y && p2color == "Red") {
+p1score -= 5;
+}
+if (p1.x == p2.x && p1.y == p2.y && p2color == "Green") {
+p1score -= 3;
+}
+if (p1score == 0) {
+p1color = "Yellow"
+p2color = "Blue"
+alert("Player 2 Wins")
+p1score = 100;
+p2score = 100;
+p1.x = 0;
+p2.x = 570;
+}
+if (p2score == 0) {
+p1color = "Yellow"
+p2color = "Blue"
+alert("Player 1 Wins")
+p1score = 100;
+p2score = 100;
+p1.x = 0;
+p2.x = 570;
+}
+}
+}
+</script>
+</body>
